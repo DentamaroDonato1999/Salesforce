@@ -87,7 +87,7 @@ public class LookForInformation {
 In Screenplay, we keep track of locators in light weight page or component objects, like this one:
 ```java
 class SearchForm {
-    static Target SEARCH_FIELD = Target.the("search field")
+    static Target SEARCH_FIELD = Target.the("home field")
                                        .locatedBy("#searchInput");
 
 }
