@@ -24,6 +24,23 @@ public class HeaderPage extends WebPage {
     @FindBy(xpath = "//input[contains(@placeholder, 'Cerca nelle app')]")
     WebElementFacade appSearch;
 
+    @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[name()='svg'][@data-key='add']")
+    WebElementFacade btnGlobalActions;
+
+    @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='trailhead_alt']")
+    WebElementFacade btnCentroOrientamento;
+
+    @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='question']")
+    WebElementFacade btnHelp;
+
+    @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='setup']")
+    WebElementFacade btnSettings;
+
+    @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='notification']")
+    WebElementFacade btnNotifiche;
+
+    @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='forceEntityIcon']")
+    WebElementFacade btnProfile;
     @Override
     @WhenPageOpens
     public void waitUntilTitleAppears() {

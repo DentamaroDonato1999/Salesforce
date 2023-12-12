@@ -16,6 +16,6 @@ public class HomePage extends WebPage {
     @Override
     @WhenPageOpens
     public void waitUntilTitleAppears() {
-
+        //unnecessary
     }
 }

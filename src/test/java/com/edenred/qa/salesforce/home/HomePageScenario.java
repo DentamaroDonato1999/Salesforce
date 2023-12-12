@@ -19,6 +19,5 @@ public class HomePageScenario {
     @Given("I am logged as {userType} user")
     public void iAmLoggedAsStandardUser(USERTYPE usertype) {
         navigateTo.homePage(usertype);
-
     }
 }
