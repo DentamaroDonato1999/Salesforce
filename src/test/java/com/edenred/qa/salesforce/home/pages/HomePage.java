@@ -1,8 +1,9 @@
 package com.edenred.qa.salesforce.home.pages;
 
-import net.serenitybdd.core.pages.PageObject;
+import com.edenred.qa.salesforce.pages.WebPage;
+import net.serenitybdd.annotations.WhenPageOpens;
 
-public class HomePage extends PageObject {
+public class HomePage extends WebPage {
 
     public HeaderPage header;
 
@@ -12,4 +13,9 @@ public class HomePage extends PageObject {
     }
 
 
+    @Override
+    @WhenPageOpens
+    public void waitUntilTitleAppears() {
+
+    }
 }

@@ -1,8 +1,8 @@
 package com.edenred.qa.salesforce.login.pages;
 
+import com.edenred.qa.salesforce.pages.WebPage;
 import net.serenitybdd.annotations.DefaultUrl;
 import net.serenitybdd.annotations.WhenPageOpens;
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.UsernameAndPassword;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @DefaultUrl("https://er-italy--uat.sandbox.my.salesforce.com")
-public class LoginPage extends PageObject {
+public class LoginPage extends WebPage {
     static final Logger log = LoggerFactory.getLogger(LoginPage.class);
     @FindBy(xpath = "//img[@id='logo']")
     WebElementFacade logo;
@@ -27,6 +27,7 @@ public class LoginPage extends PageObject {
     @FindBy(css = "#rememberUn")
     WebElementFacade rememberButton;
 
+    @Override
     @WhenPageOpens
     public void waitUntilTitleAppears() {
         log.debug("Waiting for title to appear");
@@ -39,7 +40,13 @@ public class LoginPage extends PageObject {
     public void login(String username, String password){
         typeInto(usernameField, username);
         typeInto(passwordField, password);
-        clickOn(rememberButton);
+        clickOn(loginButton);
+    }
+
+    public void rememberMe() {
+        if(!rememberButton.isSelected()){
+            clickOn(rememberButton);
+        }
     }
 
 }
