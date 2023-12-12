@@ -1,0 +1,57 @@
+
+trigger:
+  - none
+
+resources:
+  repositories:
+    - repository: DEVOPS
+      type: git
+      name: DEVOPS/DEVOPS
+      ref: "refs/heads/master"
+
+parameters:
+  - name: mavenExtraParameters
+    displayName: Please insert any other mavne parameters space separated i.e. "-Dcucumber.filter.tags=@login -Denvironment=sauce-android"
+    default: ' '
+    type: string
+    
+
+variables:
+  - group: key_vault
+  - group: QA-variable-group
+  - name: repoName
+    value: 'https://$(PAT-AZUREGIT)@dev.azure.com/edenred-it/ERIT-QA/_git/salesforce-automation-scripts'
+  - name: sdkVersion
+    value: sdk_17    # allowed values are sdk_7, sdk_8, sdk_10, sdk_11, sdk_17
+  - name: mavenProfile
+    value: ""
+  - name: artifactId
+    value: "salesforce-automation-scripts"
+  - name: saucelabsAccessKey
+    value: $(SAUCELABS-ACCESSKEY)
+  - name: saucelabsUsername
+    value: $(SAUCELABS-USERNAME)
+  - name: saucelabsUrl
+    value: $(SAUCELABS-URL)
+  - name: mailObject
+    value: 'Report Salesforce'
+  - name: mailBodyFile
+    value: 'target/site/serenity/serenity-summary.html'
+  - name: skipMail
+    value: 'false'
+
+extends:
+  template: buildTemplate_QA_Serenity.yml@DEVOPS
+  parameters:
+    repoBranch: '$(Build.SourceBranch)'
+    repo: '${{variables.repoName}}'
+    sdkVersion: '${{ variables.sdkVersion }}'
+    mavenProfile: ${{variables.mavenProfile}}
+    artifactId: ${{variables.artifactId}}
+    saucelabsAccessKey: ${{variables.saucelabsAccessKey}}
+    saucelabsUsername: ${{variables.saucelabsUsername}}
+    mavenExtraParameters: ${{parameters.mavenExtraParameters}}
+    artifactStagingDirectory: $(Build.ArtifactStagingDirectory)
+    mailObject: ${{variables.mailObject}}
+    mailBody: ${{variables.mailBodyFile}}
+    skipMail: ${{variables.skipMail}}
