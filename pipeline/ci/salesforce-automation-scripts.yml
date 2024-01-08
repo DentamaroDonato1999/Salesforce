@@ -4,9 +4,9 @@ trigger:
 
 resources:
   repositories:
-    - repository: DEVOPS
+    - repository: ERIT-QA
       type: git
-      name: DEVOPS/DEVOPS
+      name: ERIT-QA/ERIT-QA
       ref: "refs/heads/master"
 
 parameters:
@@ -41,7 +41,7 @@ variables:
     value: 'false'
 
 extends:
-  template: buildTemplate_QA_Serenity.yml@DEVOPS
+  template: buildTemplate_QA_Serenity.yml@ERIT-QA
   parameters:
     repoBranch: '$(Build.SourceBranch)'
     repo: '${{variables.repoName}}'
