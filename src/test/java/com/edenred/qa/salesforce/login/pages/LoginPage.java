@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@DefaultUrl("https://er-italy--uat.sandbox.my.salesforce.com")
+
 public class LoginPage extends WebPage {
     static final Logger log = LoggerFactory.getLogger(LoginPage.class);
     @FindBy(xpath = "//img[@id='logo']")
