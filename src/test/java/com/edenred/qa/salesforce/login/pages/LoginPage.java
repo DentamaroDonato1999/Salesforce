@@ -1,51 +1,45 @@
 package com.edenred.qa.salesforce.login.pages;
 
+import com.codeborne.selenide.SelenideElement;
+import com.edenred.qa.salesforce.annotations.PageIdentifier;
 import com.edenred.qa.salesforce.pages.WebPage;
-import net.serenitybdd.annotations.DefaultUrl;
-import net.serenitybdd.annotations.WhenPageOpens;
-import net.serenitybdd.core.pages.WebElementFacade;
+
 import org.openqa.selenium.UsernameAndPassword;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class LoginPage extends WebPage {
     static final Logger log = LoggerFactory.getLogger(LoginPage.class);
+
+    @PageIdentifier
     @FindBy(xpath = "//img[@id='logo']")
-    WebElementFacade logo;
+    SelenideElement logo;
 
     @FindBy(css = "#username")
-    WebElementFacade usernameField;
+    SelenideElement usernameField;
 
     @FindBy(css = "#password")
-    WebElementFacade passwordField;
+    SelenideElement passwordField;
 
     @FindBy(css = "#Login")
-    WebElementFacade loginButton;
+    SelenideElement loginButton;
 
     @FindBy(css = "#rememberUn")
-    WebElementFacade rememberButton;
-
-    @Override
-    @WhenPageOpens
-    public void waitUntilTitleAppears() {
-        log.debug("Waiting for title to appear");
-        logo.waitUntilVisible();
-    }
+    SelenideElement rememberButton;
 
     public void login(UsernameAndPassword credentials) {
         login(credentials.username(), credentials.password());
     }
     public void login(String username, String password){
-        typeInto(usernameField, username);
-        typeInto(passwordField, password);
-        clickOn(loginButton);
+        usernameField.setValue(username);
+        passwordField.setValue(password);
+        loginButton.click();
     }
 
     public void rememberMe() {
         if(!rememberButton.isSelected()){
-            clickOn(rememberButton);
+            rememberButton.click();
         }
     }
 

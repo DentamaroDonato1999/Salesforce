@@ -1,61 +1,59 @@
 package com.edenred.qa.salesforce.home.pages;
 
+import com.codeborne.selenide.SelenideElement;
+import com.edenred.qa.salesforce.annotations.PageIdentifier;
 import com.edenred.qa.salesforce.pages.WebPage;
-import net.serenitybdd.annotations.WhenPageOpens;
-import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
 
 public class HeaderPage extends WebPage {
     @FindBy(className = "slds-global-header__logo")
-    WebElementFacade logo;
+    SelenideElement logo;
 
-    //.slds-global-header
+    @PageIdentifier
     @FindBy(css = ".slds-global-header")
-    WebElementFacade globalHeader;
+    SelenideElement globalHeader;
 
-    //.search-button
     @FindBy(css = ".search-button")
-    WebElementFacade mainSearch;
+    SelenideElement mainSearch;
 
-    //button[contains(.,'Programma di avvio app')]
     @FindBy(xpath = "//button[contains(.,'Programma di avvio app')]")
-    WebElementFacade startAppButton;
+    SelenideElement startAppButton;
 
     @FindBy(xpath = "//input[contains(@placeholder, 'Cerca nelle app')]")
-    WebElementFacade appSearch;
+    SelenideElement appSearch;
 
     @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[name()='svg'][@data-key='add']")
-    WebElementFacade btnGlobalActions;
+    SelenideElement btnGlobalActions;
 
     @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='trailhead_alt']")
-    WebElementFacade btnCentroOrientamento;
+    SelenideElement btnCentroOrientamento;
 
     @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='question']")
-    WebElementFacade btnHelp;
+    SelenideElement btnHelp;
 
     @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='setup']")
-    WebElementFacade btnSettings;
+    SelenideElement btnSettings;
 
     @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='notification']")
-    WebElementFacade btnNotifiche;
+    SelenideElement btnNotifiche;
 
     @FindBy(xpath = "//ul[@class='slds-global-actions']/..//*[@data-key='forceEntityIcon']")
-    WebElementFacade btnProfile;
-    @Override
-    @WhenPageOpens
-    public void waitUntilTitleAppears() {
-        globalHeader.waitUntilVisible();
-    }
+    SelenideElement btnProfile;
 
     private void openAppMenu() {
-        clickOn(startAppButton);
+         startAppButton.click();
     }
 
     public void selectApp(String appName) {
         openAppMenu();
-        typeInto(appSearch, appName);
-        WebElementFacade appElement = findBy("//a[@data-label='{0}']", appName);
-        appElement.waitUntilVisible();
-        getJavascriptExecutorFacade().executeScript("arguments[0].click();", appElement);
+        appSearch.type(appName);
+        SelenideElement appElement = $(By.xpath("//a[@data-label='%s']".formatted(appName)));
+        appElement.shouldBe(visible);
+        appElement.click(usingJavaScript());
     }
 }

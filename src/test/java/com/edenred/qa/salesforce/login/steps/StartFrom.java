@@ -1,17 +1,20 @@
 package com.edenred.qa.salesforce.login.steps;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.edenred.qa.salesforce.login.pages.LoginPage;
-import net.serenitybdd.annotations.Step;
-import net.serenitybdd.annotations.Steps;
+import com.google.inject.Inject;
+import io.qameta.allure.Step;
+
 
 public class StartFrom {
-    @Steps
+    @Inject
     LoginPage loginPage;
 
     @Step
-    public void loginPage(){
-        loginPage.open();
-        loginPage.waitUntilTitleAppears();
+    public void loginPage() {
+        Selenide.open(Configuration.baseUrl);
+        loginPage.isLoaded();
     }
 
 }

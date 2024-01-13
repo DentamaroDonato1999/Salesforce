@@ -1,10 +1,11 @@
 package com.edenred.qa.salesforce.home.pages;
 
 import com.edenred.qa.salesforce.pages.WebPage;
-import net.serenitybdd.annotations.WhenPageOpens;
+import com.google.inject.Inject;
 
 public class HomePage extends WebPage {
 
+    @Inject
     public HeaderPage header;
 
 
@@ -13,9 +14,4 @@ public class HomePage extends WebPage {
     }
 
 
-    @Override
-    @WhenPageOpens
-    public void waitUntilTitleAppears() {
-        //unnecessary
-    }
 }

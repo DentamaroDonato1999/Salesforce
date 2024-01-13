@@ -1,41 +1,37 @@
 package com.edenred.qa.salesforce.home.pages;
 
+import com.codeborne.selenide.SelenideElement;
+import com.edenred.qa.salesforce.annotations.PageIdentifier;
 import com.edenred.qa.salesforce.pages.WebPage;
-import net.serenitybdd.annotations.WhenPageOpens;
-import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
 public class SalesItaliaPage extends WebPage {
 
+    @PageIdentifier
     @FindBy(css = ".span[title='Sales Italia']")
-    WebElementFacade title;
+    SelenideElement title;
 
     @FindBy(css = ".button[name='IT_NewAccount']")
-    WebElementFacade btnNewAccount;
+    SelenideElement btnNewAccount;
 
     @FindBy(css = ".a[title='Attività']")
-    WebElementFacade tabAttivita;
+    SelenideElement tabAttivita;
 
     @FindBy(css = ".a[title='Dashboard']")
-    WebElementFacade tabDashboard;
+    SelenideElement tabDashboard;
 
     @FindBy(css = ".a[title='Incentivi']")
-    WebElementFacade tabIncentivi;
+    SelenideElement tabIncentivi;
     @FindBy(css = ".a[title='Medallia']")
-    WebElementFacade tabMedallia;
+    SelenideElement tabMedallia;
 
     @FindBy(css = ".a[title='Incentivi Merchant']")
-    WebElementFacade tabIncentiviMerchant;
+    SelenideElement tabIncentiviMerchant;
 
     @FindBy(xpath="//span[contains(.,'Lead')]")
-    WebElementFacade smallTitle;
+    SelenideElement smallTitle;
 
     @FindBy(css=".a[title='My Leads (new)']")
-    WebElementFacade tableTitle;
+    SelenideElement tableTitle;
 
-    @Override
-    @WhenPageOpens
-    public void waitUntilTitleAppears() {
-        title.waitUntilVisible();
-    }
 }

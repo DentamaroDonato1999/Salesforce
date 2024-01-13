@@ -1,14 +1,14 @@
 package com.edenred.qa.salesforce.webelements;
 
-import net.serenitybdd.core.pages.WebElementFacade;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 import java.util.Map;
 public class WebTable {
-    private WebElementFacade table;
-    private WebElementFacade tbody;
+    private SelenideElement table;
+    private SelenideElement tbody;
     private final List<WebElement> header;
     List<WebElement> rows;
     int numRows;
