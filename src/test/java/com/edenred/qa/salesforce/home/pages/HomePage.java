@@ -1,17 +1,12 @@
 package com.edenred.qa.salesforce.home.pages;
 
+import com.codeborne.selenide.SelenideElement;
+import com.edenred.qa.salesforce.annotations.PageIdentifier;
 import com.edenred.qa.salesforce.pages.WebPage;
-import com.google.inject.Inject;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends WebPage {
-
-    @Inject
-    public HeaderPage header;
-
-
-    public HeaderPage getHeader() {
-        return header;
-    }
-
-
+    @PageIdentifier
+    @FindBy(xpath = "//div[@role='main']")
+    SelenideElement content;
 }

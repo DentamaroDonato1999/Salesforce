@@ -1,5 +1,5 @@
 @login
-Feature: Search by keyword
+Feature: Authentication
 
   Scenario: Login
     Given I am on the login page

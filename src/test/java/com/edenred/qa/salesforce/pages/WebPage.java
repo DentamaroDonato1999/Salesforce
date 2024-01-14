@@ -1,6 +1,7 @@
 package com.edenred.qa.salesforce.pages;
 
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.impl.SelenidePageFactory;
@@ -61,6 +62,12 @@ public abstract class WebPage extends SelenidePageFactory {
         if (pageIdentifierFieldNames.size() > 1) {
             throw new PageIdentifierException("Too many identifiers were found for Page %s [%s]".formatted(this.getClass().getName(), pageIdentifierFieldNames));
         }
+    }
+
+    protected void jsClickByXpath(String xpath){
+        String script = "document.evaluate(\"%s\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();"
+                .formatted(xpath);
+        Selenide.executeJavaScript(script);
     }
 
 }
