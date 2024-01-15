@@ -35,7 +35,7 @@ variables:
     value: $(SAUCELABS-URL)
   - name: mailObject
     value: 'Report Salesforce'
-  - name: mailBodyFile
+  - name: mailAttachment
     value: 'allure-report/index.html'
   - name: skipMail
     value: 'false'
