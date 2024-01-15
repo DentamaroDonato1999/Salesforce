@@ -1,12 +1,15 @@
 package com.edenred.qa.salesforce.home.pages;
 
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import com.edenred.qa.salesforce.annotations.PageIdentifier;
 import com.edenred.qa.salesforce.pages.WebPage;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.*;
@@ -49,20 +52,20 @@ public class NavBar extends WebPage {
     }
 
     public void openPage(String menuItem) {
+        WebDriver driver = WebDriverRunner.getWebDriver();
         log.debug("trying to open {}", menuItem);
         topGrayInfoBar.shouldBe(visible);
         log.debug("top bar is visible");
         navMenuButton.shouldBe(enabled);
         log.debug("navMenuButton is enabled: clicking...");
-        Selenide.open("/lightning/o/Account/list?filterName=Recent");
-//        String buttonXpath = "//button[@aria-label='Mostra menu di navigazione']";
-//        jsClickByXpath(buttonXpath);
-//        navMenu.shouldBe(visible);
-//        log.debug("Menu is visible: looking for {}", menuItem);
-//        SelenideElement itemElement = $$("li").findBy(attribute("data-itemid", menuItem));
-//        itemElement.scrollIntoView("{behavior: 'auto', block: 'center', inline: 'nearest'}");
-//        itemElement.shouldBe(visible);
-//        itemElement.click(usingJavaScript());
+        //Wait 2 seconds to give time to the navButton to be ready
+        Selenide.sleep(Duration.ofSeconds(2).toMillis());
+        navMenuButton.click();
+        navMenu.shouldBe(visible);
+        String xpath = "//li//a[@data-label='%s']".formatted(menuItem);
+        log.debug("Menu is visible: looking for {} at {}", menuItem, xpath);
+        SelenideElement itemElement = $(By.xpath(xpath));
+        itemElement.scrollIntoView(true).shouldBe(visible).click();
     }
 
 

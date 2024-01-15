@@ -19,11 +19,11 @@ import static com.edenred.qa.salesforce.utils.ReportUtils.*;
 @Slf4j
 public class ScenarioHooks {
     public static final String[] chromeArgs = {
-            "remote-allow-origins=*", "test-type", "no-sandbox",
+            "remote-allow-origins=*", "test-type", //"no-sandbox",
             "ignore-certificate-errors",
             "incognito", "disable-infobars", "disable-gpu", "disable-default-apps",
-            "disable-popup-blocking",
-            "disable-dev-shm-usage", "disable-extensions",
+            "disable-popup-blocking", "--disable-geolocation",
+            "disable-dev-shm-usage", "disable-extensions", "--enable-strict-powerful-feature-restrictions",
             "disable-web-security", "disable-translate", "disable-logging"};
 
     @Before
