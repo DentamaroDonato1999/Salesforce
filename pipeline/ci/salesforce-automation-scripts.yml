@@ -31,8 +31,6 @@ variables:
     value: $(SAUCELABS-ACCESSKEY)
   - name: saucelabsUsername
     value: $(SAUCELABS-USERNAME)
-  - name: saucelabsUrl
-    value: $(SAUCELABS-URL)
   - name: mailObject
     value: 'Report Salesforce'
   - name: mailAttachment
@@ -53,5 +51,5 @@ extends:
     mavenExtraParameters: ${{parameters.mavenExtraParameters}}
     artifactStagingDirectory: $(Build.ArtifactStagingDirectory)
     mailObject: ${{variables.mailObject}}
-    mailAttachment: ${{variables.mailBodyFile}}
+    mailAttachment: ${{variables.mailAttachment}}
     skipMail: ${{variables.skipMail}}
