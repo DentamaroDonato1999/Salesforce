@@ -53,5 +53,5 @@ extends:
     mavenExtraParameters: ${{parameters.mavenExtraParameters}}
     artifactStagingDirectory: $(Build.ArtifactStagingDirectory)
     mailObject: ${{variables.mailObject}}
-    mailBody: ${{variables.mailBodyFile}}
+    mailAttachment: ${{variables.mailBodyFile}}
     skipMail: ${{variables.skipMail}}
