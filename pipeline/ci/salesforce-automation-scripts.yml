@@ -41,7 +41,7 @@ variables:
     value: 'false'
 
 extends:
-  template: buildTemplate_QA_Guice.yml@ERIT-QA
+  template: buildTemplate_QA_Allure.yml@ERIT-QA
   parameters:
     repoBranch: '$(Build.SourceBranch)'
     repo: '${{variables.repoName}}'
