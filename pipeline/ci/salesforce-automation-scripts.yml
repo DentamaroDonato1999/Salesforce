@@ -12,7 +12,7 @@ resources:
 parameters:
   - name: mavenExtraParameters
     displayName: Please insert any other mavne parameters space separated i.e. "-Dcucumber.filter.tags=@login -Denvironment=sauce-android"
-    default: ' '
+    default: '-Dprofile=sauce'
     type: string
     
 
