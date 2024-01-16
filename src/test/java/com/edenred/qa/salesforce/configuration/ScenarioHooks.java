@@ -7,16 +7,11 @@ import io.cucumber.java.*;
 import io.qameta.allure.Allure;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
@@ -37,7 +32,7 @@ public class ScenarioHooks {
             "disable-web-security", "disable-translate", "disable-logging"};
 
     public static final String SAUCE_URL = "https://ondemand.eu-central-1.saucelabs.com:443/wd/hub";
-    public static final String environment = System.getProperty("environment");
+    public static final String profile = System.getProperty("profile");
     public static final String SAUCE_ENV_PROPERTY = "sauce";
 
     public static final String DEFAULT_PLATFORM = "Windows 11";
@@ -52,7 +47,7 @@ public class ScenarioHooks {
             ChromeOptions browserOptions = new ChromeOptions();
             browserOptions.addArguments(Arrays.asList(chromeArgs));
             browserOptions.setPlatformName(platformName.orElse(DEFAULT_PLATFORM));
-            if(SAUCE_ENV_PROPERTY.equalsIgnoreCase(environment)){
+            if(SAUCE_ENV_PROPERTY.equalsIgnoreCase(profile)){
                 appendSauceOptions(browserOptions);
             }
             WebDriver driver = new RemoteWebDriver(new URL(SAUCE_URL), browserOptions);
