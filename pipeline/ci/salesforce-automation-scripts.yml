@@ -11,8 +11,8 @@ resources:
 
 parameters:
   - name: mavenExtraParameters
-    displayName: Please insert any other mavne parameters space separated i.e. "-Dcucumber.filter.tags=@login -Denvironment=sauce-android"
-    default: '-Dprofile=sauce'
+    displayName: Please insert any other maven parameters space separated with double quotes i.e. "-Dcucumber.filter.tags=@login" "-Denvironment=sauce-android"
+    default: '"-Dprofile=sauce"'
     type: string
     
 
