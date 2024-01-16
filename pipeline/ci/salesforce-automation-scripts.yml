@@ -31,17 +31,15 @@ variables:
     value: $(SAUCELABS-ACCESSKEY)
   - name: saucelabsUsername
     value: $(SAUCELABS-USERNAME)
-  - name: saucelabsUrl
-    value: $(SAUCELABS-URL)
   - name: mailObject
     value: 'Report Salesforce'
-  - name: mailBodyFile
-    value: 'target/site/serenity/serenity-summary.html'
+  - name: mailAttachment
+    value: 'allure-report/index.html'
   - name: skipMail
     value: 'false'
 
 extends:
-  template: buildTemplate_QA_Serenity.yml@ERIT-QA
+  template: buildTemplate_QA_Allure.yml@ERIT-QA
   parameters:
     repoBranch: '$(Build.SourceBranch)'
     repo: '${{variables.repoName}}'
@@ -53,5 +51,5 @@ extends:
     mavenExtraParameters: ${{parameters.mavenExtraParameters}}
     artifactStagingDirectory: $(Build.ArtifactStagingDirectory)
     mailObject: ${{variables.mailObject}}
-    mailBody: ${{variables.mailBodyFile}}
+    mailAttachment: ${{variables.mailAttachment}}
     skipMail: ${{variables.skipMail}}
