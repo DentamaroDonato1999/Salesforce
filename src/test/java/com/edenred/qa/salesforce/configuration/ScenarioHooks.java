@@ -5,13 +5,23 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.*;
 import io.qameta.allure.Allure;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.AbstractDriverOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.ByteArrayInputStream;
+import java.net.URL;
+import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.edenred.qa.salesforce.utils.ReportUtils.*;
@@ -26,15 +36,46 @@ public class ScenarioHooks {
             "disable-dev-shm-usage", "disable-extensions", "--enable-strict-powerful-feature-restrictions",
             "disable-web-security", "disable-translate", "disable-logging"};
 
+    public static final String SAUCE_URL = "https://ondemand.eu-central-1.saucelabs.com:443/wd/hub";
+    public static final String environment = System.getProperty("environment");
+    public static final String SAUCE_ENV_PROPERTY = "sauce";
+
+    public static final String DEFAULT_PLATFORM = "Windows 11";
+
+    @SneakyThrows
     @Before
     public void start(Scenario scenario) {
         attachMessage("Start scenario",scenario.getName());
-        if (Configuration.browser.equals("chrome")) {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments(Arrays.asList(chromeArgs));
-            Configuration.browserCapabilities = options;
-        }
+        Optional<String> platformName = Optional.ofNullable(System.getProperty("platformName"));
 
+        if (Configuration.browser.equals("chrome")) {
+            ChromeOptions browserOptions = new ChromeOptions();
+            browserOptions.addArguments(Arrays.asList(chromeArgs));
+            browserOptions.setPlatformName(platformName.orElse(DEFAULT_PLATFORM));
+            if(SAUCE_ENV_PROPERTY.equalsIgnoreCase(environment)){
+                appendSauceOptions(browserOptions);
+            }
+            WebDriver driver = new RemoteWebDriver(new URL(SAUCE_URL), browserOptions);
+            WebDriverRunner.setWebDriver(driver);
+        }
+    }
+
+    private <T extends AbstractDriverOptions<T>> void appendSauceOptions(T browserOptions){
+        String username = System.getProperty("sauce.username");
+        String accessKey = System.getProperty("sauce.accessKey");
+        String buildId = System.getProperty("sauce.build");
+        String testName = "Salesforce Test Automation";
+        Map<String, Object> sauceOptions = new HashMap<>();
+        sauceOptions.put("username", username);
+        sauceOptions.put("accessKey", accessKey);
+        sauceOptions.put("build", buildId);
+        sauceOptions.put("name", testName);
+        sauceOptions.put("screenResolution", "1920x1080");
+        sauceOptions.put("maxDuration", Duration.ofMinutes(60).toSeconds());
+        sauceOptions.put("timeZone", "Rome");
+        sauceOptions.put("extendedDebugging", true);
+        sauceOptions.put("capturePerformance", true);
+        browserOptions.setCapability("sauce:options", sauceOptions);
     }
 
     @BeforeStep
