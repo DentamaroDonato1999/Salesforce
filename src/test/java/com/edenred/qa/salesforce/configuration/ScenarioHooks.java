@@ -19,7 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.edenred.qa.salesforce.utils.ReportUtils.*;
+import static com.edenred.qa.salesforce.utils.ReportUtils.attachMessage;
+import static com.edenred.qa.salesforce.utils.ReportUtils.attachScreenshot;
 
 @Slf4j
 public class ScenarioHooks {
@@ -32,30 +33,28 @@ public class ScenarioHooks {
             "disable-web-security", "disable-translate", "disable-logging"};
 
     public static final String SAUCE_URL = "https://ondemand.eu-central-1.saucelabs.com:443/wd/hub";
-    public static final String profile = System.getProperty("profile");
-    public static final String SAUCE_ENV_PROPERTY = "sauce";
+    public static String environment = System.getProperty("profile");
+    public static final String SAUCE_ENV_PROPERTY = "saucelabs";
 
-    public static final String DEFAULT_PLATFORM = "Windows 11";
 
     @SneakyThrows
     @Before
     public void start(Scenario scenario) {
-        attachMessage("Start scenario",scenario.getName());
-        Optional<String> platformName = Optional.ofNullable(System.getProperty("platformName"));
-
+        attachMessage("Start scenario", scenario.getName());
         if (Configuration.browser.equals("chrome")) {
             ChromeOptions browserOptions = new ChromeOptions();
             browserOptions.addArguments(Arrays.asList(chromeArgs));
-            browserOptions.setPlatformName(platformName.orElse(DEFAULT_PLATFORM));
-            if(SAUCE_ENV_PROPERTY.equalsIgnoreCase(profile)){
+            if (SAUCE_ENV_PROPERTY.equalsIgnoreCase(environment)) {
                 appendSauceOptions(browserOptions);
+                WebDriver driver = new RemoteWebDriver(new URL(SAUCE_URL), browserOptions);
+                WebDriverRunner.setWebDriver(driver);
+            } else {
+                Configuration.browserCapabilities = browserOptions;
             }
-            WebDriver driver = new RemoteWebDriver(new URL(SAUCE_URL), browserOptions);
-            WebDriverRunner.setWebDriver(driver);
         }
     }
 
-    private <T extends AbstractDriverOptions<T>> void appendSauceOptions(T browserOptions){
+    private <T extends AbstractDriverOptions<T>> void appendSauceOptions(T browserOptions) {
         String username = System.getProperty("sauce.username");
         String accessKey = System.getProperty("sauce.accessKey");
         String buildId = System.getProperty("sauce.build");

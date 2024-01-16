@@ -3,7 +3,7 @@ package com.edenred.qa.salesforce.opportunity;
 import com.edenred.qa.salesforce.assertions.WebAssertions;
 import com.edenred.qa.salesforce.home.pages.NavBar;
 import com.edenred.qa.salesforce.home.steps.HomeNavigations;
-import com.edenred.qa.salesforce.opportunity.pages.AccountPage;
+import com.edenred.qa.salesforce.home.pages.AccountPage;
 import com.google.inject.Inject;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

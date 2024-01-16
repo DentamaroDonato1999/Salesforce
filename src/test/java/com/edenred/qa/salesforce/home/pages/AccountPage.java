@@ -1,4 +1,4 @@
-package com.edenred.qa.salesforce.opportunity.pages;
+package com.edenred.qa.salesforce.home.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import com.edenred.qa.salesforce.annotations.PageIdentifier;
